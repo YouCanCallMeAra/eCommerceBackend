@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const productSchema = new mongoose.Schema({
+const ProductSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -32,5 +32,5 @@ const productSchema = new mongoose.Schema({
 });
 
 //mongoose.model("User", // name of collection in the db must be capital and singular
-const ProductsModel = mongoose.model("Product", productSchema);
+const ProductsModel = mongoose.model("Product", ProductSchema);
 export default ProductsModel;
