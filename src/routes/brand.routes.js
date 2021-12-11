@@ -26,4 +26,19 @@ brandRouter.post("/brands", async (req, res) => {
   res.json({ message: "brand created" });
 });
 
+brandRouter.get("/brands/:id", async (req, res) => {
+  const brand = await BrandsModel.findById(req.params.id);
+  res.json(brand);
+});
+
+brandRouter.put("/brands/:id", async (req, res) => {
+  const brand = await BrandsModel.findByIdAndUpdate(req.params.id, req.body);
+  res.json(brand);
+});
+
+brandRouter.delete("/brands/:id", async (req, res) => {
+  await BrandsModel.findByIdAndRemove(req.params.id);
+  res.json({ message: "brand removed" });
+});
+
 export default brandRouter;

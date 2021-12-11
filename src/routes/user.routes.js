@@ -37,8 +37,9 @@ userRouter.put("/users/:id", async (req, res) => {
   res.json(user);
 });
 
-userRouter.delete("/users/:id", (req, res) => {
-  UsersModel.findOneAndDelete(req.body).then((data) => res.send(data));
+userRouter.delete("/users/:id", async (req, res) => {
+  UsersModel.findByIdAndRemove(req.params.id);
+  res.json({ message: "user removed" });
 });
 
 export default userRouter;

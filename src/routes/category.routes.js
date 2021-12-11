@@ -26,4 +26,22 @@ categoryRouter.post("/categories", async (req, res) => {
   res.json({ message: "category created" });
 });
 
+categoryRouter.get("/categories/:id", async (req, res) => {
+  const category = await CategoriesModel.findById(req.params.id);
+  res.json(category);
+});
+
+categoryRouter.put("/categories/:id", async (req, res) => {
+  const category = await CategoriesModel.findByIdAndUpdate(
+    req.params.id,
+    req.body
+  );
+  res.json(category);
+});
+
+categoryRouter.delete("/categories/:id", async (req, res) => {
+  await CategoriesModel.findByIdAndRemove(req.params.id);
+  res.json({ message: "category removed" });
+});
+
 export default categoryRouter;
