@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import userRouter from "./src/routes/user.routes.js";
+import authRouter from "./src/routes/auth.routes.js";
 import productRouter from "./src/routes/product.routes.js";
 import categoryRouter from "./src/routes/category.routes.js";
 import brandRouter from "./src/routes/brand.routes.js";
@@ -12,7 +13,7 @@ async function main() {
   //connect to db
   const url = process.env.DB_URL;
   await mongoose.connect(url);
-  console.log("db connected");
+  // console.log("db connected");
 
   const app = express();
 
@@ -22,12 +23,14 @@ async function main() {
 
   //setup routes
   app.use(userRouter);
+  app.use(authRouter);
   app.use(productRouter);
   app.use(categoryRouter);
   app.use(brandRouter);
 
-  app.listen(process.env.PORT, () => {
-    console.log("listening to port 5000");
+  const port = process.env.PORT;
+  app.listen(port, () => {
+    console.log("listening to port " + port);
   });
 }
 
