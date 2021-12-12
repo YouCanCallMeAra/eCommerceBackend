@@ -1,3 +1,4 @@
+// import { boolean } from "joi";
 import mongoose from "mongoose";
 
 const UserSchema = new mongoose.Schema({
@@ -12,6 +13,10 @@ const UserSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
+  },
+  isAdmin: {
+    type: Boolean,
+    default: false,
   },
 });
 
