@@ -6,6 +6,7 @@ import productRouter from "./src/routes/product.routes.js";
 import categoryRouter from "./src/routes/category.routes.js";
 import brandRouter from "./src/routes/brand.routes.js";
 import mongoose from "mongoose";
+import cors from "cors";
 
 async function main() {
   dotenv.config("dotenv");
@@ -22,6 +23,7 @@ async function main() {
   app.use(express.urlencoded({ extended: false }));
 
   //setup routes
+  app.use(cors());
   app.use(userRouter);
   app.use(authRouter);
   app.use(productRouter);

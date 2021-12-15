@@ -1,6 +1,7 @@
 import { Router } from "express";
 import UsersModel from "../models/user.model.js";
 import userValidate from "../validations/user.validate.js";
+import { isAdmin, isAuth } from "../middlewares/auth.middleware.js";
 
 const userRouter = Router();
 
@@ -9,7 +10,7 @@ userRouter.get("/users", async (req, res) => {
   res.json(user);
 });
 
-userRouter.post("/users", async (req, res) => {
+userRouter.post("/users", isAdmin, async (req, res) => {
   try {
     await userValidate.validateAsync(req.body);
   } catch (error) {

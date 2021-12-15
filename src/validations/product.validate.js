@@ -7,8 +7,12 @@ const productValidate = Joi.object({
   image: Joi.string().required(),
   category: Joi.string().required(),
   brand: Joi.string().required(),
+  size: Joi.any(),
+  color: Joi.any().required(),
   price: Joi.number().required(),
   quantity: Joi.number(),
 });
 
 export default productValidate;
+
+// size: Joi.string().valid("s", "xl").required(),

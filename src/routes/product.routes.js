@@ -1,12 +1,38 @@
 import { Router } from "express";
 import ProductsModel from "../models/product.model.js";
 import ProductValidate from "../validations/product.validate.js";
+import winston from "winston";
 
 const productRouter = Router();
 
 productRouter.get("/products", async (req, res) => {
-  const product = await ProductsModel.find({});
-  res.json(product);
+  // const product = await ProductsModel.find({});
+  // res.json(product);
+
+  try {
+    if (req.query.category) {
+      // if category is specified in the query, then get all products of that category
+      const products = await ProductsModel.find({
+        category: req.query.category,
+      });
+      return res.json(products);
+    } else if (req.query.search) {
+      // if search is specified in the query, then get all products that match the search
+      const products = await ProductsModel.find({
+        name: { $regex: req.query.search, $options: "i" },
+      });
+      return res.json(products);
+    } else {
+      // if no query is specified, then get all products
+      const products = await ProductsModel.find();
+      return res.json(products);
+    }
+  } catch (error) {
+    winston.error(error);
+    return res.status(500).json({
+      error: "fetching products failed!",
+    });
+  }
 });
 
 productRouter.post("/products", async (req, res) => {

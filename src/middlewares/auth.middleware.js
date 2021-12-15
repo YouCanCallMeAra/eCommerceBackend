@@ -17,12 +17,12 @@ export function isAuth(req, res, next) {
 // Middleware to check if the user is admin
 export function isAdmin(req, res, next) {
   // Get the token from the Authorization header
-  let token = req.headers.authorization;
+  const token = req.headers.authorization;
   try {
     // Check the token to verify if it is valid
-    const user = jwt.verify(token);
+    const user = jwt.verify(token, process.env.JWT_PRIVATE_KEY);
     // check if the user is admin then allow the request to access the protected route
-    if (user.role === "admin") {
+    if (user.isAdmin === true) {
       req.user = user;
       return next();
     }
