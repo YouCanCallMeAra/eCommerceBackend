@@ -8,12 +8,24 @@ const productRouter = Router();
 productRouter.get("/products", async (req, res) => {
   // const product = await ProductsModel.find({});
   // res.json(product);
-
+  // console.log(req.query.category);
   try {
     if (req.query.category) {
       // if category is specified in the query, then get all products of that category
       const products = await ProductsModel.find({
         category: req.query.category,
+      });
+      return res.json(products);
+    } else if (req.query.brand) {
+      // if category is specified in the query, then get all products of that category
+      const products = await ProductsModel.find({
+        brand: req.query.brand,
+      });
+      return res.json(products);
+    } else if (req.query.gender) {
+      // if category is specified in the query, then get all products of that category
+      const products = await ProductsModel.find({
+        gender: req.query.gender,
       });
       return res.json(products);
     } else if (req.query.search) {
